@@ -1,6 +1,97 @@
 import "./App.css";
+import { Button } from "./components/Button/Button";
 
 function App() {
+  type Info = {
+    text: string;
+    class: string;
+    action?: () => void;
+  };
+
+  const buttons: Info[] = [
+    {
+      text: "%",
+      class: "text-secondary bg-primary",
+    },
+    {
+      text: "C",
+      class: "text-secondary bg-primary",
+    },
+    {
+      text: "←",
+      class: "text-secondary bg-primary",
+    },
+    {
+      text: "÷",
+      class: "text-secondary bg-primary",
+    },
+    {
+      text: "1",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "2",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "3",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "×",
+      class: "text-secondary bg-primary",
+    },
+    {
+      text: "4",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "5",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "6",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "-",
+      class: "text-secondary bg-primary",
+    },
+    {
+      text: "7",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "8",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "9",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "+",
+      class: "text-secondary bg-primary",
+    },
+    {
+      text: "±",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "0",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: ".",
+      class: "text-secondary bg-[#edf9ff] ",
+    },
+    {
+      text: "=",
+      class:
+        "text-white font-semibold m-3 bg-secondary hover:bg-blue-500 transition-all active:ring-4",
+    },
+  ];
+
   return (
     <>
       <main className='bg-red-500 w-[340px] mx-auto mt-14 rounded-xl overflow-hidden shadow-lg'>
@@ -14,27 +105,14 @@ function App() {
         </div>
 
         <div className='bg-white p-5 h-[400px] grid grid-cols-4 '>
-          {["%", "C", "←", "÷"].map((element) => (
-            <button
-              key={element}
-              className='text-secondary bg-primary rounded-full text-[16px] font-semibold m-3 hover:bg-blue-500 transition-all active:ring-4'
-            >
-              {element}
-            </button>
+          {buttons.map((button) => (
+            <Button
+              key={button.text}
+              text={button.text}
+              class={button.class}
+              onClick={() => {}}
+            />
           ))}
-
-          {Array.from({ length: 15 }, (_, index) => (
-            <button
-              key={index}
-              className='text-secondary bg-[#edf9ff] rounded-full  text-[16px] font-semibold m-3 hover:bg-blue-500 transition-all active:ring-4'
-            >
-              {index}
-            </button>
-          ))}
-
-          <button className='text-white text-[16px] font-semibold rounded-full m-3 bg-secondary hover:bg-blue-500 transition-all active:ring-4'>
-            =
-          </button>
         </div>
       </main>
     </>
