@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./App.css";
 import { Button } from "./components/Button/Button";
+import { useTheme } from "./hooks/useTheme";
+import { IconSun } from "./components/Icons/IconSun";
+import { IconMoon } from "./components/Icons/IconMoon";
 
 function App() {
   type Info = {
@@ -94,6 +97,7 @@ function App() {
 
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState("");
+  const { theme, setTheme } = useTheme();
 
   const handleButtonClick = (buttonText: string) => {
     if (buttonText === "C") {
@@ -113,8 +117,22 @@ function App() {
     }
   };
 
+  const handleThemeChange = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+    if (theme === "light") {
+      document.documentElement.classList.remove("dark");
+      return;
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  };
+
   return (
     <>
+      <button className='fixed right-12 top-4' onClick={handleThemeChange}>
+        {theme === "light" ? <IconSun /> : <IconMoon />}
+      </button>
+
       <main className='bg-red-500 w-[340px] mx-auto mt-14 rounded-xl overflow-hidden shadow-lg'>
         <div className='text-white bg-secondary p-5 flex justify-end'>
           {expression}
@@ -123,7 +141,7 @@ function App() {
           <h1 className='text-3xl font-semibold'>=</h1>
           <h1 className='text-3xl font-semibold'>{result}</h1>
         </div>
-        <div className='bg-white p-5 h-[400px] grid grid-cols-4 '>
+        <div className='bg-white dark:bg-blue-500 p-5 h-[400px] grid grid-cols-4 '>
           {buttons.map((button) => (
             <Button
               key={button.text}
