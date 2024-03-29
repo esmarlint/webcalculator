@@ -1,7 +1,13 @@
-export function IconSun() {
+import { SVGProps } from "react";
+import { JSX } from "react/jsx-runtime";
+
+export function IconSun(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
   return (
     <svg
-      className='w-6 h-6 text-gray-800 dark:text-white'
+      className='w-6 h-6'
+      {...props}
       aria-hidden='true'
       xmlns='http://www.w3.org/2000/svg'
       width='24'
