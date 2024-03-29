@@ -11,26 +11,45 @@ export type ButtonMetadata = {
   class: string;
 };
 
+function formatExpression(expression: string) {
+  return expression.split(" ").map((item, index) => {
+    if (["+", "-", "×", "÷"].includes(item)) {
+      return (
+        <span
+          key={index}
+          className='mx-4 text-slate-900 dark:text-sky-800 font-bold text-[1rem]'
+        >
+          {item}
+        </span>
+      );
+    }
+    return item + " ";
+  });
+}
+
 const App = () => {
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState("");
   const { theme, setTheme } = useTheme();
 
   const handleButtonClick = (buttonText: string) => {
-    if (buttonText === "C") {
+    if (["+", "-", "×", "÷"].includes(buttonText)) {
+      setExpression((prev) => `${prev} ${buttonText} `);
+    } else if (buttonText === "C") {
       setExpression("");
       setResult("");
     } else if (buttonText === "←") {
-      setExpression((prevExpression) => prevExpression.slice(0, -1));
+      setExpression((prev) => prev.trim().slice(0, -1).trim() + " ");
     } else if (buttonText === "=") {
       try {
-        const calculatedResult = eval(expression);
+        const resultExpression = expression.replace(/\s+/g, "");
+        const calculatedResult = eval(resultExpression);
         setResult(calculatedResult.toString());
       } catch (error) {
         setResult("Error");
       }
     } else {
-      setExpression((prevExpression) => prevExpression + buttonText);
+      setExpression((prev) => prev + buttonText);
     }
   };
 
@@ -47,7 +66,7 @@ const App = () => {
   return (
     <>
       <button
-        className='fixed right-12 top-4 dark:bg-slate-950 bg-secondary p-1 rounded-xl hover:ring-4 hover:transition-all'
+        className='fixed right-4 top-4 dark:bg-slate-950 bg-secondary p-1 rounded-xl hover:ring-4 hover:transition-all'
         onClick={handleThemeChange}
       >
         {theme === "light" ? (
@@ -59,7 +78,7 @@ const App = () => {
 
       <main className='w-[340px] mx-auto mt-14 rounded-xl overflow-hidden shadow-lg '>
         <div className='text-white bg-secondary p-5 flex justify-end dark:bg-slate-950 tracking-wide'>
-          {expression}
+          {formatExpression(expression)}
         </div>
 
         <div className='text-white bg-secondary p-5 flex justify-between dark:bg-slate-950'>
