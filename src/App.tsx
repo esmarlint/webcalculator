@@ -129,8 +129,15 @@ function App() {
 
   return (
     <>
-      <button className='fixed right-12 top-4' onClick={handleThemeChange}>
-        {theme === "light" ? <IconSun /> : <IconMoon />}
+      <button
+        className='fixed right-12 top-4 bg-secondary p-1 rounded-xl hover:ring-4 hover:transition-all'
+        onClick={handleThemeChange}
+      >
+        {theme === "light" ? (
+          <IconSun className='text-white' />
+        ) : (
+          <IconMoon className='text-white' />
+        )}
       </button>
 
       <main className='bg-red-500 w-[340px] mx-auto mt-14 rounded-xl overflow-hidden shadow-lg'>
