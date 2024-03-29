@@ -14,84 +14,84 @@ function App() {
   const buttons: Info[] = [
     {
       text: "%",
-      class: "text-secondary bg-primary",
+      class: "text-secondary bg-primary dark:bg-slate-900",
     },
     {
       text: "C",
-      class: "text-secondary bg-primary",
+      class: "text-secondary bg-primary dark:bg-slate-900",
     },
     {
       text: "←",
-      class: "text-secondary bg-primary",
+      class: "text-secondary bg-primary dark:bg-slate-900",
     },
     {
       text: "÷",
-      class: "text-secondary bg-primary",
+      class: "text-secondary bg-primary dark:bg-slate-900",
     },
     {
       text: "1",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "2",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "3",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "×",
-      class: "text-secondary bg-primary",
+      class: "text-secondary bg-primary dark:bg-slate-900",
     },
     {
       text: "4",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "5",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "6",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "-",
-      class: "text-secondary bg-primary",
+      class: "text-secondary bg-primary dark:bg-slate-900",
     },
     {
       text: "7",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "8",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "9",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: "+",
-      class: "text-secondary bg-primary",
+      class: "text-secondary bg-primary dark:bg-slate-900",
     },
     {
       text: "±",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-900",
     },
     {
       text: "0",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-950",
     },
     {
       text: ".",
-      class: "text-secondary bg-[#edf9ff] ",
+      class: "text-secondary bg-[#edf9ff] dark:bg-slate-900",
     },
     {
       text: "=",
       class:
-        "text-white font-semibold m-3 bg-secondary hover:bg-blue-500 transition-all active:ring-4",
+        "text-white font-semibold m-3 bg-secondary hover:bg-blue-500 transition-all active:ring-4 dark:bg-blue-800",
     },
   ];
 
@@ -130,25 +130,25 @@ function App() {
   return (
     <>
       <button
-        className='fixed right-12 top-4 bg-secondary p-1 rounded-xl hover:ring-4 hover:transition-all'
+        className='fixed right-12 top-4 dark:bg-slate-950 bg-secondary p-1 rounded-xl hover:ring-4 hover:transition-all'
         onClick={handleThemeChange}
       >
         {theme === "light" ? (
-          <IconSun className='text-white' />
+          <IconSun className='text-white ' />
         ) : (
           <IconMoon className='text-white' />
         )}
       </button>
 
-      <main className='bg-red-500 w-[340px] mx-auto mt-14 rounded-xl overflow-hidden shadow-lg'>
-        <div className='text-white bg-secondary p-5 flex justify-end'>
+      <main className='w-[340px] mx-auto mt-14 rounded-xl overflow-hidden shadow-lg '>
+        <div className='text-white bg-secondary p-5 flex justify-end dark:bg-slate-950'>
           {expression}
         </div>
-        <div className='text-white bg-secondary p-5 flex justify-between'>
+        <div className='text-white bg-secondary p-5 flex justify-between dark:bg-slate-950'>
           <h1 className='text-3xl font-semibold'>=</h1>
           <h1 className='text-3xl font-semibold'>{result}</h1>
         </div>
-        <div className='bg-white dark:bg-blue-500 p-5 h-[400px] grid grid-cols-4 '>
+        <div className='bg-white dark:bg-slate-800 p-5 h-[400px] grid grid-cols-4 '>
           {buttons.map((button) => (
             <Button
               key={button.text}
