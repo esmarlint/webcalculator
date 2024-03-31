@@ -23,7 +23,7 @@ function formatExpression(expression: string) {
         </span>
       );
     }
-    return item + " ";
+    return <span className='font-bold'>{item + " "}</span>;
   });
 }
 
@@ -31,10 +31,32 @@ const App = () => {
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState("");
   const { theme, setTheme } = useTheme();
+  // ...
+
+  function validateExpression(expression: string) {
+    const trimmedExpr = expression.trim();
+
+    const processedExpr = trimmedExpr.replace(/÷/g, "/").replace(/×/g, "*");
+
+    if (/[\+\-\*\/]$/.test(processedExpr) || /^[\*\/]/.test(processedExpr)) {
+      return false;
+    }
+
+    if (
+      /[\+\-\*\/] {0,}[\*\/]/.test(processedExpr) ||
+      /[\+\*\/] {0,}[\+\*\/]/.test(processedExpr)
+    ) {
+      return false;
+    }
+
+    return true;
+  }
 
   const handleButtonClick = (buttonText: string) => {
     if (["+", "-", "×", "÷"].includes(buttonText)) {
-      setExpression((prev) => `${prev} ${buttonText} `);
+      if (!expression.endsWith(" ") && expression !== "") {
+        setExpression((prev) => `${prev} ${buttonText} `);
+      }
     } else if (buttonText === "C") {
       setExpression("");
       setResult("");
@@ -42,16 +64,42 @@ const App = () => {
       setExpression((prev) => prev.trim().slice(0, -1).trim() + " ");
     } else if (buttonText === "=") {
       try {
-        const resultExpression = expression.replace(/\s+/g, "");
-        const calculatedResult = eval(resultExpression);
-        setResult(calculatedResult.toString());
+        const validExpression = validateExpression(expression);
+        if (validExpression) {
+          const calculatedResult = evaluateExpression(expression);
+          setResult(calculatedResult.toString());
+        } else {
+          setResult("");
+        }
       } catch (error) {
         setResult("Error");
       }
+    } else if (buttonText === "%" || buttonText === "±") {
+      // Implementa la lógica para los botones "%" y "±" si es necesario
     } else {
       setExpression((prev) => prev + buttonText);
     }
   };
+
+  // ...
+
+  function evaluateExpression(expression: string) {
+    let formattedExpression = expression.replace(/÷/g, "/").replace(/×/g, "*");
+
+    formattedExpression = formattedExpression.replace(/(\d+)\.$/, "$1.0");
+
+    formattedExpression = formattedExpression.replace(
+      /(\d+)%/g,
+      (_match, number) => `${number}/100`
+    );
+
+    try {
+      return eval(formattedExpression);
+    } catch (error) {
+      console.error("Error evaluating expression: ", error);
+      return "Error";
+    }
+  }
 
   const handleThemeChange = () => {
     setTheme(theme === "light" ? "dark" : "light");
